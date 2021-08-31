@@ -7,7 +7,8 @@ const passport = require("passport");
 
 userRouter.post('/login', passport.authenticate('local'), (req, res, next) =>{
     try {
-        res.send(200);
+        
+        res.status(200).send(req.user);
     } catch (error) {
         next(error);        
     }
@@ -18,10 +19,9 @@ userRouter.post('/login', passport.authenticate('local'), (req, res, next) =>{
 userRouter.post("/register", async (req, res, next) => {
   try {
     const user = req.body;
-    if (user.username.length < 4 || user.password.length < 6) {
-      res
-        .status(500)
-        .send("Username and Password must have 6 or more characters!");
+    if (user.username.length < 6 || user.password.length < 6) {
+      res        
+        .json("Username and Password must have 6 or more characters!");
     } else {
       const userDB = await db.oneOrNone("SELECT * FROM users WHERE username=$1", [
         user.username,
@@ -29,14 +29,15 @@ userRouter.post("/register", async (req, res, next) => {
       
       if (!userDB) {
         await bcrypt.hash(user.password, 10, async function (err, hash) {
-          const userId = await db.none(
-            "INSERT INTO users(username, password) VALUES($1, $2)",
+          const userId = await db.one(
+            "INSERT INTO users(username, password) VALUES($1, $2) RETURNING user_id",
             [user.username, hash]
-          );
-          res.send(userId);
+          )
+          
+          res.status(200).send(userId);
         });
       } else {
-        res.status(500).send("Username is already exist!");
+        res.json("Username is taken!")
       }
     }
   } catch (error) {

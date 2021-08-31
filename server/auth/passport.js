@@ -2,7 +2,7 @@ const passport =        require('passport');
 const LocalStrategy =   require('passport-local').Strategy;
 const db =              require('../db.js');
 const bcrypt =          require('bcrypt');
-
+const session =         require('express-session');
 
 
 passport.use(new LocalStrategy(
@@ -31,8 +31,9 @@ passport.serializeUser(function(user, done) {
   
   passport.deserializeUser(async function(id, done) {
     try {
-        const user = db.one('SELECT * FROM users WHERE user_id=$1', [id]);
-        done(user.user_id);
+        const user = await db.one('SELECT * FROM users WHERE user_id=$1', [id]);
+        
+        done(user);
     } catch (error) {
         done(error);
     }
