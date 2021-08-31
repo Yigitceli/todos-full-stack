@@ -4,13 +4,17 @@ const morgan =          require('morgan');
 const dotenv =          require('dotenv').config();
 const errorHandler =    require('express-error-handler');
 const indexRouter =     require('./routes/index.js');
+const passport =        require('passport');
 
 const app = express();
 
 app.use(morgan('dev'));
+app.use(session({ secret: process.env.SECRET }));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api', indexRouter);
 
 
