@@ -8,9 +8,11 @@ const passport = require("./auth/passport.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
+const path = require("path");
 
 const app = express();
 // test asd
+
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -30,6 +32,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", indexRouter);
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
