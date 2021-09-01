@@ -3,6 +3,7 @@ const db = require("../db.js");
 
 todosRouter.param("todoId", async (req, res, next, id) => {
   try {
+    
     const todo = await db.oneOrNone(
       "SELECT * FROM todos WHERE todo_id=$1 AND user_id=$2",
       [id, req.user]
@@ -21,10 +22,13 @@ todosRouter.param("todoId", async (req, res, next, id) => {
 
 todosRouter.get("/", async (req, res, next) => {
   try {
-    console.log(1);
+    console.log('IN TODOS');
+    console.log(req.session);    
+      
     const todos = await db.manyOrNone("SELECT * FROM todos WHERE user_id=$1", [
       req.user.user_id,
     ]);
+    
 
     if (!todos.length) {
       res.send("Todos list is empty!");

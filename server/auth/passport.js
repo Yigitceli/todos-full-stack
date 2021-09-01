@@ -33,7 +33,7 @@ passport.serializeUser(function(user, done) {
     try {
         const user = await db.one('SELECT * FROM users WHERE user_id=$1', [id]);
         
-        done(user);
+        done(null, user);
     } catch (error) {
         done(error);
     }
