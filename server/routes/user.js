@@ -6,8 +6,20 @@ const passport = require("passport");
 userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
   try {
     req.session.save();
-    console.log(req.session);    
+
     res.status(200).json(req.user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.get("/logged", (req, res, next) => {
+  try {
+    if (req.isAuthenticated()) {
+      res.send({ loggedIn: true, user: req.user });
+    } else {
+      res.send({ loggedIn: false });
+    }
   } catch (error) {
     next(error);
   }
@@ -15,20 +27,23 @@ userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
 
 userRouter.post("/register", async (req, res, next) => {
   try {
-    const user = req.body;
+    const user = req.body;   
     if (user.username.length < 6 || user.password.length < 6) {
       res.json("Username and Password must have 6 or more characters!");
-    } else {
+    } else {      
       const userDB = await db.oneOrNone(
         "SELECT * FROM users WHERE username=$1",
         [user.username]
+        
       );
+      
 
       if (!userDB) {
         await bcrypt.hash(user.password, 10, async function (err, hash) {
+          console.log(user.lastName)
           const userId = await db.one(
-            "INSERT INTO users(username, password) VALUES($1, $2) RETURNING user_id",
-            [user.username, hash]
+            "INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4) RETURNING user_id",
+            [user.username, hash, user.firstName, user.lastName]
           );
 
           res.status(200).json(userId);
@@ -43,12 +58,11 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 userRouter.get("/logout", (req, res, next) => {
-  console.log('IN LOGOUT');
-  console.log(req.session);  
-  req.session.destroy();  
+  console.log("IN LOGOUT");
+
+  req.session.destroy();
   req.logOut();
-  
-  
+
   res.send(200);
 });
 
