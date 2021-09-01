@@ -23,8 +23,7 @@ todosRouter.param("todoId", async (req, res, next, id) => {
 todosRouter.get("/", async (req, res, next) => {
   try {
     console.log('IN TODOS');
-    console.log(req.session);    
-      
+    console.log(req.session);      
     const todos = await db.manyOrNone("SELECT * FROM todos WHERE user_id=$1", [
       req.user.user_id,
     ]);
@@ -33,6 +32,7 @@ todosRouter.get("/", async (req, res, next) => {
     if (!todos.length) {
       res.send("Todos list is empty!");
     } else {
+      console.log(todos);      
       res.json(todos);
     }
   } catch (error) {

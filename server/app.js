@@ -14,16 +14,16 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({origin: "http://localhost:3000", credentials:true}));
 app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SECRET,
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false,
     store: new PostgreSqlStore({
       conString: process.env.DB_CONNECTION,
-    }),
+    }),    
   })
 );
 app.use(passport.initialize());

@@ -5,6 +5,7 @@ const passport = require("passport");
 
 userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
   try {
+    req.session.save();
     console.log(req.session);    
     res.status(200).json(req.user);
   } catch (error) {
@@ -44,10 +45,9 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.get("/logout", (req, res, next) => {
   console.log('IN LOGOUT');
   console.log(req.session);  
-  req.session.destroy();
-  console.log(req.session);
+  req.session.destroy();  
   req.logOut();
-  console.log(res.user);
+  
   
   res.send(200);
 });
