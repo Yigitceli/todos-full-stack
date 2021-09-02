@@ -39,7 +39,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use("/api", indexRouter);
-app.use("/", (req, res, next )=> {
+app.use("/asd", (req, res, next )=> {
   res.json("TESTT");
 })
 
