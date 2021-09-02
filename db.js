@@ -1,17 +1,24 @@
-const pg = require("pg-promise")();
+const {client} = require("pg");
 const dotenv = require("dotenv").config();
 
+const db = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
+db.connect();
 
 const config = {
   connectionString: process.env.DATABASE_URL,
-  max: 30,
   ssl: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: false
   }
+  
 };
 
-const db = pg(config);
+
 
 
 module.exports = db;
