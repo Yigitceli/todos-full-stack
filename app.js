@@ -30,7 +30,10 @@ app.use(
   session({
     secret: process.env.SECRET,
     saveUninitialized: true,
-    resave: false,    
+    resave: false,
+    store: new PostgreSqlStore({
+      conString: process.env.DATABASE_URL,
+    })    
        
   })
 );
