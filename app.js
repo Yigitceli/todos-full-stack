@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
 const path = require("path");
 const app = express();
+app.set('trust proxy', 1);
 
 //
 
