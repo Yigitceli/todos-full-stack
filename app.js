@@ -32,8 +32,7 @@ app.use(
     saveUninitialized: true,
     resave: false,
     store: new PostgreSqlStore({
-      conString: process.env.DATABASE_URL,
-      ssl: true,
+      conString: process.env.DATABASE_URL,      
     }),    
   })
 );

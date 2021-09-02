@@ -6,11 +6,8 @@ const dotenv = require("dotenv").config();
 
 
 const config = {
-  connectionString: process.env.DATABASE_URL + "?ssl=true",
-  max: 30,
-  ssl: {
-    rejectUnauthorized: false,
-  }
+  connectionString: process.env.DATABASE_URL,
+  max: 30,  
 };
 
 const db = pg(config);
