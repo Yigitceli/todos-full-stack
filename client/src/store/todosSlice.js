@@ -36,7 +36,7 @@ export const addTodo = createAsyncThunk("addTodo", async (arg) => {
   try {
     
     const response = await axios.post(
-      "/todos/",
+      "api/todos/",
       { todoName: arg.todoName, todoDescription: arg.todoDescription },
       { withCredentials: true }
     );
