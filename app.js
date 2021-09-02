@@ -32,10 +32,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", indexRouter);
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+/*app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
+});*/
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
