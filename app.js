@@ -11,18 +11,16 @@ const PostgreSqlStore = require("connect-pg-simple")(session);
 const path = require("path");
 const app = express();
 
-
-
-
 app.use(morgan("dev"));
-app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}));
+app.use(
+  cors({ origin: "https://todos-fullstack.herokuapp.com", credentials: true })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-if(process.env.NODE_ENV === "production"){
-  console.log("Production")
+if (process.env.NODE_ENV === "production") {
+  console.log("Production");
   app.use(express.static(path.join(__dirname, "./client/build")));
-
 }
 
 app.use(cookieParser());
@@ -33,23 +31,21 @@ app.use(
     resave: false,
     store: new PostgreSqlStore({
       conString: process.env.DATABASE_URL,
-      tableName: 'user_session'
-    })    
-       
+      tableName: "user_session",
+    }),
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", indexRouter);
-app.use("/asd", (req, res, next )=> {
+app.use("/asd", (req, res, next) => {
   res.json("TESTT");
-})
-
+});
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
 });
-
 
 app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "./client/build/index.html"));
