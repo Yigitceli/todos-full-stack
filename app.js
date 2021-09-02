@@ -23,7 +23,7 @@ if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "./client/build")));
 
 }
-app.enable('trust proxy');
+
 app.use(cookieParser());
 app.use(
   session({
@@ -32,7 +32,10 @@ app.use(
     resave: false,
     store: new PostgreSqlStore({
       conString: process.env.DATABASE_URL,      
-    }),    
+    }),
+    cookie:{
+      secure:true,
+    }    
   })
 );
 app.use(passport.initialize());
