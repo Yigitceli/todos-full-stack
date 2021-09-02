@@ -32,7 +32,7 @@ userRouter.post("/register", async (req, res, next) => {
     
     
     const user = req.body;
-    console.log(user);
+    
     if (user.username.length < 6 || user.password.length < 6) {
       res.json("Username and Password must have 6 or more characters!");
     } else {
@@ -40,7 +40,7 @@ userRouter.post("/register", async (req, res, next) => {
         "SELECT * FROM users WHERE username=$1",
         [user.username]
       );
-      console.log(userDB);
+      
 
       if (!userDB) {
         const hash = await bcrypt.hash(user.password, 10);        
@@ -61,9 +61,8 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 userRouter.get("/logout", (req, res, next) => {
-  console.log("LOGOUT");
-  console.log(req.session);
-  console.log(req.user); 
+  
+
   req.session.destroy();
   req.logOut();
 
