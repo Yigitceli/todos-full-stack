@@ -3,15 +3,12 @@ const db = require("../db.js");
 
 todosRouter.param("todoId", async (req, res, next, id) => {
   try {
-    console.log('PARAMS')
-    console.log(req.body)
-    console.log(req.user);
-    console.log(req.session);
+    
     const todo = await db.oneOrNone(
       "SELECT * FROM todos WHERE todo_id=$1 AND user_id=$2",
       [id, req.user.user_id]
     );
-    console.log(todo);
+    
       
     if (!todo) {
       res.status(404).send("There is no todo with this id!");
@@ -28,13 +25,11 @@ todosRouter.param("todoId", async (req, res, next, id) => {
 
 todosRouter.get("/", async (req, res, next) => {
   try {
-    console.log('GET')
-    console.log(req.user);
-    console.log(req.session);
+    
     const todos = await db.manyOrNone("SELECT * FROM todos WHERE user_id=$1", [
       req.user.user_id,
     ]);
-    console.log(todos);
+    
     
 
     if (!todos.length) {
@@ -57,10 +52,7 @@ todosRouter.get("/:todoId", (req, res, next) => {
 
 todosRouter.post("/", async (req, res, next) => {
   try {
-    console.log('POST')
-    console.log(req.body)
-    console.log(req.user);
-    console.log(req.session);
+    
     const { todoName, todoDescription } = req.body;
 
     if (todoName.length <= 0 || todoDescription.length <= 0) {
@@ -70,7 +62,7 @@ todosRouter.post("/", async (req, res, next) => {
         "INSERT INTO todos(todo_name, todo_description, user_id) VALUES($1, $2, $3) RETURNING *",
         [todoName, todoDescription, req.user.user_id]
       );
-      console.log(todo);
+      
       
       res.status(202).json(todo);
     }

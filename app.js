@@ -19,10 +19,11 @@ app.use(cors({origin: "https://todos-yigit.netlify.app", credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-/*if(process.env.NODE_ENV === "production"){
+if(process.env.NODE_ENV === "production"){
+  console.log("Production")
   app.use(express.static(path.join(__dirname, "./client/build")));
 
-}*/
+}
 
 app.use(cookieParser());
 app.use(
@@ -46,9 +47,9 @@ app.use((err, req, res, next) => {
 });
 
 
-/*app.get("*", function (request, response) {
+app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "./client/build/index.html"));
-});*/
+});
 
 app.listen(process.env.PORT || 3001, () => {
   console.log(`Server Listening at `);
