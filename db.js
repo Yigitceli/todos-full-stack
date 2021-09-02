@@ -1,6 +1,6 @@
 const pg = require("pg-promise")();
 const dotenv = require("dotenv").config();
 
-const db = pg(process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.DB_CONNECTION);
+const db = pg(process.env.DATABASE_URL);
 
 module.exports = db;
