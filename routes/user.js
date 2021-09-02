@@ -61,8 +61,9 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 userRouter.get("/logout", (req, res, next) => {
-  
-
+  console.log("LOGOUT");
+  console.log(req.session);
+  console.log(req.user); 
   req.session.destroy();
   req.logOut();
 
