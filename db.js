@@ -1,8 +1,19 @@
 const pg = require("pg-promise")();
-pg.pg.defaults.ssl = true;
 const dotenv = require("dotenv").config();
 
-const db = pg(process.env.DATABASE_URL);
-pg.pg.defaults.ssl = true;
+let ssl = null;
+
+if (process.env.NODE_ENV === 'development') {
+  ssl = {rejectUnauthorized: false};
+}
+
+const config = {
+  connectionString: process.env.DATABASE_URL,
+  max: 30,
+  ssl:ssl
+};
+
+const db = pg(config);
+
 
 module.exports = db;
