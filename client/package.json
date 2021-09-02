@@ -43,7 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "https://todos-fullstack.herokuapp.com/api"
   
   
 }

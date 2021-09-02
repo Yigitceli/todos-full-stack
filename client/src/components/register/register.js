@@ -14,7 +14,7 @@ export default function Register() {
 
     if (password === passwordVerify) {
       const response = await axios.post(
-        "https://todos-serverside.herokuapp.com/api/user/register",
+        "/user/register",
         {
           username: username,
           password: password,

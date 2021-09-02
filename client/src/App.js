@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get("https://todos-serverside.herokuapp.com/api/user/logged", { withCredentials: true })
+      .get("/user/logged", { withCredentials: true })
       .then((response) => {        
         if (response.data.loggedIn) {                   
           dispatch(logIn(response.data.user));

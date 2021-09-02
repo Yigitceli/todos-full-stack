@@ -20,7 +20,7 @@ export const deleteTodo = createAsyncThunk("deleteTodo", async (arg) => {
   try {
     
     const response = await axios.delete(
-      `https://todos-serverside.herokuapp.com/api/todos/${arg}`,
+      `/todos/${arg}`,
       { withCredentials: true }
     );
 
@@ -36,7 +36,7 @@ export const addTodo = createAsyncThunk("addTodo", async (arg) => {
   try {
     
     const response = await axios.post(
-      "https://todos-serverside.herokuapp.com/api/todos/",
+      "/todos/",
       { todoName: arg.todoName, todoDescription: arg.todoDescription },
       { withCredentials: true }
     );

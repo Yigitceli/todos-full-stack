@@ -11,7 +11,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://todos-serverside.herokuapp.com/api/user/login",
+      "/user/login",
       { username: username, password: password },
       { withCredentials: true }
     );
