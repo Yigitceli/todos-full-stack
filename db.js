@@ -11,3 +11,5 @@ const db = pg(config);
 
 
 module.exports = db;
+
+//"heroku-postbuild": "cd client && npm install && npm run build"
