@@ -8,6 +8,7 @@ const passport = require("./auth/passport.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
+
 const path = require("path");
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(
     resave: false,
     store: new PostgreSqlStore({
       conString: process.env.DATABASE_URL,
+      ssl: true,
     }),    
   })
 );
