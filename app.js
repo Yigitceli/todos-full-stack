@@ -10,9 +10,9 @@ const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
 const path = require("path");
 const app = express();
-app.set('trust proxy', 1);
 
-//
+
+
 
 app.use(morgan("dev"));
 app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}));
@@ -30,13 +30,8 @@ app.use(
   session({
     secret: process.env.SECRET,
     saveUninitialized: true,
-    resave: false,
-    store: new PostgreSqlStore({
-      conString: process.env.DATABASE_URL,      
-    }),
-    cookie:{
-      secure:true,
-    }    
+    resave: false,    
+       
   })
 );
 app.use(passport.initialize());
