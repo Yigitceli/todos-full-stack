@@ -11,13 +11,19 @@ const PostgreSqlStore = require("connect-pg-simple")(session);
 const path = require("path");
 
 const app = express();
-// test asd
+
 
 
 app.use(morgan("dev"));
+app.use(cors({origin: "http://localhost:3000", credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({origin: "http://localhost:3000", credentials:true}));
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, "./client/build")));
+
+}
+
 app.use(cookieParser());
 app.use(
   session({
@@ -33,15 +39,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", indexRouter);
 
-/*app.use(express.static(path.resolve(__dirname, "./client/build")));
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});*/
+
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Listening`);
+
+app.get("*", function (request, response) {
+  response.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Server Listening at `);
 });
