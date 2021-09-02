@@ -5,6 +5,10 @@ const passport = require("passport");
 
 userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
   try {
+    console.log("LOGİN")
+    console.log(req.body)
+    console.log(req.user);
+    console.log(req.session);
     req.session.save();
 
     res.status(200).json(req.user);
@@ -14,7 +18,9 @@ userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
 });
 
 userRouter.get("/logged", (req, res, next) => {
-  try {
+  try {    
+    
+    
     if (req.isAuthenticated()) {
       res.send({ loggedIn: true, user: req.user });
     } else {
@@ -27,6 +33,9 @@ userRouter.get("/logged", (req, res, next) => {
 
 userRouter.post("/register", async (req, res, next) => {
   try {
+    console.log("REGİSTER")
+    console.log(req.body)    
+    console.log(req.session);
     const user = req.body;
     if (user.username.length < 6 || user.password.length < 6) {
       res.json("Username and Password must have 6 or more characters!");

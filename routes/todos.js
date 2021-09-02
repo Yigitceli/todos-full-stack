@@ -3,10 +3,15 @@ const db = require("../db.js");
 
 todosRouter.param("todoId", async (req, res, next, id) => {
   try {
+    console.log('PARAMS')
+    console.log(req.body)
+    console.log(req.user);
+    console.log(req.session);
     const todo = await db.oneOrNone(
       "SELECT * FROM todos WHERE todo_id=$1 AND user_id=$2",
       [id, req.user.user_id]
     );
+    console.log(todo);
       
     if (!todo) {
       res.status(404).send("There is no todo with this id!");
@@ -23,6 +28,7 @@ todosRouter.param("todoId", async (req, res, next, id) => {
 
 todosRouter.get("/", async (req, res, next) => {
   try {
+    console.log('GET')
     console.log(req.user);
     console.log(req.session);
     const todos = await db.manyOrNone("SELECT * FROM todos WHERE user_id=$1", [
@@ -51,7 +57,7 @@ todosRouter.get("/:todoId", (req, res, next) => {
 
 todosRouter.post("/", async (req, res, next) => {
   try {
-    
+    console.log('POST')
     console.log(req.body)
     console.log(req.user);
     console.log(req.session);
