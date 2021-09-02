@@ -19,11 +19,11 @@ app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-if(process.env.NODE_ENV === "production"){
+/*if(process.env.NODE_ENV === "production"){
   console.log("Production")
   app.use(express.static(path.join(__dirname, "./client/build")));
 
-}
+}*/
 
 app.use(cookieParser());
 app.use(
