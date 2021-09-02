@@ -5,7 +5,7 @@ const passport = require("passport");
 
 userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
   try {
-    
+       
     req.session.save();
 
     res.status(200).json(req.user);

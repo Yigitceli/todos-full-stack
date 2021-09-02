@@ -8,6 +8,9 @@ const session =         require('express-session');
 passport.use(new LocalStrategy(
     async function(username, password, done){
         try {
+            console.log("AUTHENTİCATE");
+            console.log(username);
+            
             const user = await db.oneOrNone('SELECT * FROM users WHERE username=$1',[username]);
             if(!user){
                 done(null, false,{message: 'Username is not exist!'});
