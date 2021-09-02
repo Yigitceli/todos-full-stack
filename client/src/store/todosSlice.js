@@ -19,7 +19,7 @@ export const fetchTodos = createAsyncThunk("fetchTodos", async (arg) => {
 export const deleteTodo = createAsyncThunk("deleteTodo", async (arg) => {
   try {
     
-    const response = await axios.delete(
+    await axios.delete(
       `api/todos/${arg}`,
       { withCredentials: true }
     );
@@ -68,7 +68,7 @@ const todosSlice = createSlice({
       state.todos = [];
     })
     builder.addCase(deleteTodo.fulfilled, (state, action) => {
-      if (state.todos.length - 1 == 0) {
+      if (state.todos.length - 1 === 0) {
         state.todos = [];
       } else {
         state.todos = state.todos.filter(
