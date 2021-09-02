@@ -23,9 +23,9 @@ if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "./client/build")));
 
 }
-
+app.enable('trust proxy');
 app.use(cookieParser());
-/*app.use(
+app.use(
   session({
     secret: process.env.SECRET,
     saveUninitialized: true,
@@ -34,7 +34,7 @@ app.use(cookieParser());
       conString: process.env.DATABASE_URL,      
     }),    
   })
-);*/
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", indexRouter);
