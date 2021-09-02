@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 }*/
 
 app.use(cookieParser());
-/*app.use(
+app.use(
   session({
     secret: process.env.SECRET,
     saveUninitialized: true,
@@ -34,7 +34,7 @@ app.use(cookieParser());
       conString: process.env.DATABASE_URL,      
     }),    
   })
-);*/
+);
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use("/api", indexRouter);
