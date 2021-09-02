@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchTodos = createAsyncThunk("fetchTodos", async (arg) => {
   try {
     
-    const response = await axios.get("https://todos-serverside.herokuapp.com/api/todos/", {
+    const response = await axios.get("api/todos/", {
       withCredentials: true,
     });    
     
@@ -20,7 +20,7 @@ export const deleteTodo = createAsyncThunk("deleteTodo", async (arg) => {
   try {
     
     const response = await axios.delete(
-      `/todos/${arg}`,
+      `api/todos/${arg}`,
       { withCredentials: true }
     );
 

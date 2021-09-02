@@ -7,7 +7,6 @@ userRouter.post("/login", passport.authenticate("local"), (req, res, next) => {
   try {
        
     req.session.save();
-
     res.status(200).json(req.user);
   } catch (error) {
     next(error);
@@ -31,7 +30,7 @@ userRouter.get("/logged", (req, res, next) => {
 userRouter.post("/register", async (req, res, next) => {
   try {
     
-    console.log("REGİSTER");
+    
     const user = req.body;
     console.log(user);
     if (user.username.length < 6 || user.password.length < 6) {

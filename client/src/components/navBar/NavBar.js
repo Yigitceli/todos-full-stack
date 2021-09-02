@@ -10,7 +10,7 @@ const NavBar = () => {
   const history = useHistory();
   const dispatch = useDispatch()
   const handleClick = async (e) => {
-    await axios.get("/user/logout", {withCredentials:true});
+    await axios.get("api/user/logout", {withCredentials:true});
     dispatch(setTodo([]));
     dispatch(logOut());
     history.push("/");  
