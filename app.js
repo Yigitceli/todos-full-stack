@@ -31,7 +31,7 @@ app.use(
     saveUninitialized: true,
     resave: false,
     store: new PostgreSqlStore({
-      conString: process.env.DB_CONNECTION,
+      conString: process.env.DATABASE_URL,
     }),    
   })
 );
