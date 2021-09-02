@@ -14,15 +14,15 @@ const app = express();
 //
 
 app.use(morgan("dev"));
-//app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}));
+app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-/*if(process.env.NODE_ENV === "production"){
+if(process.env.NODE_ENV === "production"){
   console.log("Production")
   app.use(express.static(path.join(__dirname, "./client/build")));
 
-}*/
+}
 
 app.use(cookieParser());
 /*app.use(
@@ -37,7 +37,7 @@ app.use(cookieParser());
 );*/
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use("/api", indexRouter);
+app.use("/api", indexRouter);
 app.use("/asd", (req, res, next )=> {
   res.json("TESTT");
 })
