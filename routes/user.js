@@ -31,7 +31,9 @@ userRouter.get("/logged", (req, res, next) => {
 userRouter.post("/register", async (req, res, next) => {
   try {
     
+    console.log("REGİSTER");
     const user = req.body;
+    console.log(user);
     if (user.username.length < 6 || user.password.length < 6) {
       res.json("Username and Password must have 6 or more characters!");
     } else {
@@ -39,6 +41,7 @@ userRouter.post("/register", async (req, res, next) => {
         "SELECT * FROM users WHERE username=$1",
         [user.username]
       );
+      console.log(userDB);
 
       if (!userDB) {
         const hash = await bcrypt.hash(user.password, 10);        
@@ -46,6 +49,7 @@ userRouter.post("/register", async (req, res, next) => {
           "INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4) RETURNING user_id",
           [user.username, hash, user.firstName, user.lastName]
         );
+        console.log("USER ID " + userId);
 
         res.status(200).json(userId);
       } else {

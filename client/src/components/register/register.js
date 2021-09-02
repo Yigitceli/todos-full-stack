@@ -21,7 +21,10 @@ export default function Register() {
           firstName: firstName,
           lastName: lastName
         }
+        
       );
+      console.log("IN REGISTER COMPONENT");
+      console.log(response);
 
       if (!response.data.user_id) {
         setErrors((prev) => [...prev, response.data]);
