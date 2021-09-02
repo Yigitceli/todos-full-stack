@@ -9,7 +9,6 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
 const path = require("path");
-
 const app = express();
 
 //
@@ -17,7 +16,7 @@ const app = express();
 app.use(morgan("dev"));
 //app.use(cors({origin: "https://todos-fullstack.herokuapp.com", credentials:true}));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 /*if(process.env.NODE_ENV === "production"){
   console.log("Production")
@@ -26,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 }*/
 
 app.use(cookieParser());
-app.use(
+/*app.use(
   session({
     secret: process.env.SECRET,
     saveUninitialized: true,
@@ -35,7 +34,7 @@ app.use(
       conString: process.env.DATABASE_URL,      
     }),    
   })
-);
+);*/
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use("/api", indexRouter);
