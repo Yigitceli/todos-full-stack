@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get("/user/logged", { withCredentials: true })
+      .get("https://todos-yigit.herokuapp.com/api/user/logged", { withCredentials: true })
       .then((response) => {        
         if (response.data.loggedIn) {                   
           dispatch(logIn(response.data.user));

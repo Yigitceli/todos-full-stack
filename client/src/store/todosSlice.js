@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchTodos = createAsyncThunk("fetchTodos", async (arg) => {
   try {
-    const response = await axios.get("/todos/", {
+    const response = await axios.get("https://todos-yigit.herokuapp.com/api/todos/", {
       withCredentials: true,
     });    
     
@@ -17,7 +17,7 @@ export const deleteTodo = createAsyncThunk("deleteTodo", async (arg) => {
   try {
     
     const response = await axios.delete(
-      `/todos/${arg}`,
+      `https://todos-yigit.herokuapp.com/api/todos/${arg}`,
       { withCredentials: true }
     );
     
@@ -29,7 +29,7 @@ export const deleteTodo = createAsyncThunk("deleteTodo", async (arg) => {
 export const addTodo = createAsyncThunk("addTodo", async (arg) => {
   try {
     const response = await axios.post(
-      "/todos/",
+      "https://todos-yigit.herokuapp.com/api/todos/",
       { todoName: arg.todoName, todoDescription: arg.todoDescription },
       { withCredentials: true }
     );
