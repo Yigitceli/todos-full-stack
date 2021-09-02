@@ -2,9 +2,6 @@ const pg = require("pg-promise")();
 const dotenv = require("dotenv").config();
 
 
-
-
-
 const config = {
   connectionString: process.env.DATABASE_URL,
   max: 30,  

@@ -8,22 +8,21 @@ const passport = require("./auth/passport.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const PostgreSqlStore = require("connect-pg-simple")(session);
-
 const path = require("path");
 
 const app = express();
 
-
+//
 
 app.use(morgan("dev"));
-app.use(cors({credentials:true}));
+app.use(cors({origin: "http://localhost:3000", credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-if(process.env.NODE_ENV === "production"){
+/*if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "./client/build")));
 
-}
+}*/
 
 app.use(cookieParser());
 app.use(
@@ -47,9 +46,9 @@ app.use((err, req, res, next) => {
 });
 
 
-app.get("*", function (request, response) {
+/*app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+});*/
 
 app.listen(process.env.PORT || 3001, () => {
   console.log(`Server Listening at `);
