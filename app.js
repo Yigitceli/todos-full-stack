@@ -33,6 +33,7 @@ app.use(
     resave: false,
     store: new PostgreSqlStore({
       conString: process.env.DATABASE_URL,
+      tableName: 'user_session'
     })    
        
   })
