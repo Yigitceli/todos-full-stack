@@ -8,6 +8,7 @@ export default function Register() {
   const [passwordVerify, setPasswordVeryify] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [complete, setComplete] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +24,7 @@ export default function Register() {
         }
         
       );
-      console.log("IN REGISTER COMPONENT");
-      console.log(response);
+      
 
       if (!response.data.user_id) {
         setErrors((prev) => [...prev, response.data]);
@@ -35,6 +35,9 @@ export default function Register() {
         setPasswordVeryify("");
         setFirstName("");
         setLastName("");
+        setComplete(true);
+        setTimeout(setComplete(false), 10000);
+        
       }
     } else {
       if (errors.find((item) => item === "Passwords do not match.")) {
@@ -56,6 +59,7 @@ export default function Register() {
       </div>
       <div>
         <h2 className="text-center">Register</h2>
+        {complete && <h3><strong>You are successfully registered.</strong></h3>}
         <div className="mb-3">
           <label htmlFor="username-login" className="form-label">
             Username
