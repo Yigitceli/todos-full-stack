@@ -4,12 +4,15 @@ import Register from "../register/register";
 import "./log.css";
 
 export default function Log() {
-  const [login, setLogin] = useState(true);  
+  const [login, setLogin] = useState(true);
+  const [registered, setRegistered] = useState(false);  
   
   const loginClickHandler = () => {
+    setRegistered(false);
     setLogin(true);
   };
   const registerClickHandler = () => {
+    setRegistered(false);
     setLogin(false);
   };
 
@@ -25,7 +28,7 @@ export default function Log() {
             Register
           </button>
         </div>
-        {login ? <Login /> : <Register />}
+        {login ? <Login /> : <Register registered={registered} setRegistered={setRegistered}/>}
       </div>
     </div>
   );

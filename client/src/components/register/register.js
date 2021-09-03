@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Register() {
+export default function Register(props) {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVeryify] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [complete, setComplete] = useState(false);
+  const {registered, setRegistered} = props;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export default function Register() {
         setPasswordVeryify("");
         setFirstName("");
         setLastName("");
-        setComplete(true);
+        setRegistered(true);
         
         
       }
@@ -59,7 +59,7 @@ export default function Register() {
       </div>
       <div>
         <h2 className="text-center">Register</h2>
-        {complete && <h3><strong>You are successfully registered.</strong></h3>}
+        {registered && <h3 className='text-center'><strong>You are successfully registered.</strong></h3>}
         <div className="mb-3">
           <label htmlFor="username-login" className="form-label">
             Username
