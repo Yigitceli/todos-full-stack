@@ -59,7 +59,7 @@ export default function Register(props) {
       </div>
       <div>
         <h2 className="text-center">Register</h2>
-        {registered && <h3 className='text-center'><strong>You are successfully registered.</strong></h3>}
+        {registered && <h3 className='text-center'><strong className='text-center'>You are successfully registered.</strong></h3>}
         <div className="mb-3">
           <label htmlFor="username-login" className="form-label">
             Username
