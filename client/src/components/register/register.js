@@ -36,7 +36,7 @@ export default function Register() {
         setFirstName("");
         setLastName("");
         setComplete(true);
-        setTimeout(setComplete(false), 10000);
+        
         
       }
     } else {
